@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Victor Taiwo — AI Training Generalist Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --surface: #FFFFFF;
+    --ink: #1C2B3A;
+    --muted: #5B6B7B;
+    --gold: #9C7A2E;
+    --green: #3F7A5B;
+    --rust: #A23E34;
+    --rule: #DAD4C5;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #15181C;
+      --surface: #1D2126;
+      --ink: #EDEAE2;
+      --muted: #9CA7B2;
+      --gold: #D2AE5F;
+      --green: #6FAE8C;
+      --rust: #D1736A;
+      --rule: #333A41;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15181C;
+    --surface: #1D2126;
+    --ink: #EDEAE2;
+    --muted: #9CA7B2;
+    --gold: #D2AE5F;
+    --green: #6FAE8C;
+    --rust: #D1736A;
+    --rule: #333A41;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+  header { margin-bottom: 48px; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(32px, 6vw, 46px);
+    margin: 0 0 8px;
+    line-height: 1.1;
+  }
+  .role {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 19px;
+    color: var(--gold);
+    margin: 0 0 20px;
+  }
+  .intro {
+    font-size: 16.5px;
+    color: var(--muted);
+    max-width: 62ch;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 20px;
+  }
+  .rule { border: none; border-top: 1px solid var(--rule); margin: 44px 0; }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 20px;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 32px;
+  }
+  @media (max-width: 520px) { .skills-grid { grid-template-columns: 1fr; } }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14.5px;
+  }
+  .skill-row span.tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+  }
+  .case {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 26px 28px;
+    margin-bottom: 22px;
+  }
+  .case-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .case-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+  }
+  .score {
+    font-family: var(--mono);
+    font-size: 12px;
+    white-space: nowrap;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid currentColor;
+  }
+  .score.pass { color: var(--green); }
+  .score.flag { color: var(--rust); }
+  .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: lowercase;
+    margin: 16px 0 4px;
+  }
+  .block {
+    font-size: 14.5px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 3px solid var(--rule);
+  }
+  .verdict {
+    font-size: 14.5px;
+    margin-top: 14px;
+    color: var(--ink);
+  }
+  .verdict strong { color: var(--gold); font-weight: 600; }
+  .project {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+  }
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 4px;
+  }
+  .project-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0;
+  }
+  .project-role {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  .project ul {
+    margin: 0 0 12px;
+    padding-left: 18px;
+    font-size: 14.5px;
+  }
+  .project li { margin-bottom: 5px; }
+  .project .outcome {
+    font-size: 14px;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  .project .outcome strong { color: var(--green); font-weight: 600; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (max-width: 520px) { .timeline-item { grid-template-columns: 1fr; gap: 4px; } }
+  .timeline-item .when {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .timeline-item .what { font-size: 14.5px; }
+  .timeline-item .what strong { display: block; margin-bottom: 2px; }
+  footer {
+    margin-top: 56px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  footer a { color: var(--gold); text-decoration: none; border-bottom: 1px solid currentColor; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">portfolio / ai evaluation &amp; annotation</p>
+    <h1>Victor Taiwo</h1>
+    <p class="role">AI Training Generalist — prompt evaluation, output review &amp; research</p>
+    <p class="intro">I review and rate AI-generated responses against detailed rubrics, compare outputs to judge which best fits a task's requirements, and write clear, evidence-based reasoning behind every call. Below are worked examples of how I approach that kind of evaluation.</p>
+    <div class="meta-row">
+      <span>victortaiwo822@gmail.com</span>
+      <span>Remote — available full-time</span>
+      <span>BSc Civil Engineering, Obafemi Awolowo University</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <section>
+    <h2>Core skills</h2>
+    <div class="skills-grid">
+      <div class="skill-row"><span>Response rating &amp; ranking</span><span class="tag">evaluation</span></div>
+      <div class="skill-row"><span>Rubric &amp; guideline application</span><span class="tag">evaluation</span></div>
+      <div class="skill-row"><span>Error &amp; inconsistency flagging</span><span class="tag">evaluation</span></div>
+      <div class="skill-row"><span>Prompt creation &amp; refinement</span><span class="tag">annotation</span></div>
+      <div class="skill-row"><span>Data annotation &amp; classification</span><span class="tag">annotation</span></div>
+      <div class="skill-row"><span>Fact-checking &amp; verification</span><span class="tag">research</span></div>
+      <div class="skill-row"><span>Written evaluation justification</span><span class="tag">writing</span></div>
+      <div class="skill-row"><span>High-volume task consistency</span><span class="tag">process</span></div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2>Sample evaluations</h2>
+
+    <div class="case">
+      <div class="case-head">
+        <p class="case-title">Instruction-following: substitution request</p>
+        <span class="score pass">response a preferred</span>
+      </div>
+      <p class="label">prompt</p>
+      <p class="block">"I'm out of buttermilk. Give me a substitute I can use in a pancake recipe, and explain why it works."</p>
+      <p class="label">response a</p>
+      <p class="block">Suggests mixing 1 cup milk with 1 tablespoon lemon juice or vinegar, explains that the acid curdles the milk and mimics buttermilk's tang and tenderizing effect, and notes to let it sit 5 minutes before using.</p>
+      <p class="label">response b</p>
+      <p class="block">Suggests using plain yogurt instead, but does not explain why it works or how much to use relative to the original buttermilk amount.</p>
+      <p class="verdict"><strong>Verdict:</strong> Response A fully satisfies the prompt — it gives a substitute, a ratio, and the requested explanation. Response B answers only part of the instruction (no explanation, no quantity), so it's marked down for incompleteness despite being a valid substitute in principle.</p>
+    </div>
+
+    <div class="case">
+      <div class="case-head">
+        <p class="case-title">Factual accuracy check</p>
+        <span class="score flag">error found</span>
+      </div>
+      <p class="label">prompt</p>
+      <p class="block">"What year did the first commercial transatlantic telephone cable go into service?"</p>
+      <p class="label">model response</p>
+      <p class="block">States the first transatlantic telephone cable (TAT-1) entered service in 1958.</p>
+      <p class="verdict"><strong>Verdict:</strong> Flagged as a factual error. TAT-1 entered commercial service in September 1956, not 1958 — I'd correct the response and note the source of the discrepancy so the training signal reflects the right date rather than a plausible-sounding wrong one.</p>
+    </div>
+
+    <div class="case">
+      <div class="case-head">
+        <p class="case-title">Tone &amp; guideline alignment</p>
+        <span class="score pass">response b preferred</span>
+      </div>
+      <p class="label">prompt</p>
+      <p class="block">"My order arrived damaged and I'm frustrated — what are my options?"</p>
+      <p class="label">response a</p>
+      <p class="block">Opens with "I understand that must be frustrating" then lists return steps in a flat, procedural tone with no acknowledgment of urgency.</p>
+      <p class="label">response b</p>
+      <p class="block">Acknowledges the frustration briefly, then leads with the fastest resolution path (replacement vs. refund) and gives a clear next step with a timeframe.</p>
+      <p class="verdict"><strong>Verdict:</strong> Response B better matches a support-guideline rubric that weights actionability alongside empathy — it doesn't over-index on the apology and gets the person to resolution faster, which is usually what's actually being asked for.</p>
+    </div>
+
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2>Selected projects</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <p class="project-title">High-volume AI response evaluation &amp; ranking</p>
+      </div>
+      <p class="project-role">freelance / ai content &amp; output evaluation specialist</p>
+      <ul>
+        <li>Evaluated and ranked large volumes of AI-generated responses against detailed rubrics covering accuracy, relevance, tone, and instruction-following.</li>
+        <li>Compared multiple candidate outputs per prompt and selected the strongest response based on guideline criteria.</li>
+        <li>Documented clear, written reasoning behind each judgment to support downstream model training decisions.</li>
+      </ul>
+      <p class="outcome"><strong>Outcome:</strong> Sustained consistent evaluation accuracy across high task volumes while meeting strict turnaround deadlines.</p>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <p class="project-title">Policy-compliance content moderation</p>
+      </div>
+      <p class="project-role">freelance / content moderator &amp; data reviewer</p>
+      <ul>
+        <li>Reviewed and classified high volumes of user-generated content against platform policy guidelines.</li>
+        <li>Identified and flagged inappropriate, misleading, or policy-violating material for escalation.</li>
+        <li>Applied a consistent judgment framework to resolve ambiguous, borderline cases without guessing.</li>
+      </ul>
+      <p class="outcome"><strong>Outcome:</strong> Maintained high review accuracy while processing high daily content volumes under time constraints.</p>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <p class="project-title">Research &amp; documentation support, public-sector client</p>
+      </div>
+      <p class="project-role">freelance / online research &amp; content specialist</p>
+      <ul>
+        <li>Conducted multi-source research and cross-verification on assigned topics for a public-sector client.</li>
+        <li>Organized findings into clear, structured written reports for non-technical stakeholders.</li>
+        <li>Proofread and refined written content for accuracy, clarity, and consistency before submission.</li>
+      </ul>
+      <p class="outcome"><strong>Outcome:</strong> Delivered timely, well-verified research summaries that supported stakeholder decision-making.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2>Relevant experience</h2>
+    <div class="timeline-item">
+      <span class="when">Jan 2025 – present</span>
+      <div class="what"><strong>AI Content &amp; Output Evaluation Specialist</strong>Freelance — rating AI-generated responses against rubrics, comparing outputs, and documenting evaluation reasoning.</div>
+    </div>
+    <div class="timeline-item">
+      <span class="when">Nov 2023 – Oct 2025</span>
+      <div class="what"><strong>Content Moderator / Data Reviewer</strong>Freelance — classifying user-generated content against policy guidelines at high volume.</div>
+    </div>
+    <div class="timeline-item">
+      <span class="when">Dec 2024 – Jan 2026</span>
+      <div class="what"><strong>Online Research &amp; Content Specialist</strong>Freelance — research, source verification, and written summaries for a public-sector client.</div>
+    </div>
+  </section>
+
+  <footer>
+    Available for remote AI training and evaluation work. Reach me at <a href="mailto:victortaiwo822@gmail.com">victortaiwo822@gmail.com</a>.
+  </footer>
+
+</div>
+</body>
+</html>
